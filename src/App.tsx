@@ -1,11 +1,19 @@
-import {useState, useEffect} from 'react'
+import { useEffect, useState } from 'react'
 import Header from "./components/Header/Header"
 
 import { ChevronRight } from "lucide-react"
 
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import './app.css'
+import "leaflet/dist/leaflet.css"
+
+import { IResults } from '../src/@types/types'
+import { Icon } from 'leaflet'
+
+
 function App() {
   const [valueSearch, setValueSearch] = useState('');
-  const [results, setResults] = useState('')   
+  const [results, setResults] = useState<IResults>()   
 
 
   const handleSearchInputValue = () => { 
@@ -29,10 +37,9 @@ function App() {
     
   }
 
-  useEffect(()=> {
-
-  },[])
-
+  useEffect( () => {
+    // handleSearchInputValue()
+  })
 
   return (
     <main className="flex flex-col items-center w-full h-full">
@@ -48,29 +55,37 @@ function App() {
           </div>
       </div>
 
-      <section className="sm:flex-col lg:flex w-[70%] sm:h-auto lg:h-36 justify-center bg-white rounded-lg mt-4">
+      <section className="sm:flex-col lg:flex w-[70%] sm:h-auto lg:h-36 justify-center bg-white rounded-lg mt-4 z-40">
         <div className="flex max-md:flex-col max-md:items-center w-full justify-between p-8 gap-5">
           <div className="flex flex-col justify-center max-md:items-center">
             <span className="font-bold text-slate-400">IP ADDRESS</span>
-            <span className="font-bold text-slate-800 text-xl break-all">{results.ip}</span>
+            <span className="font-bold text-slate-800 text-xl break-all text-center">{results?.ip == null ? '-' : results?.ip }</span>
 
           </div>
           <div className="flex flex-col justify-center max-md:items-center">
             <span className="font-bold text-slate-400">LOCATION</span>
-            <span className="font-bold text-slate-800 text-xl">{results.city},{results.region} </span>
+            <span className="font-bold text-slate-800 text-xl text-center">{results?.city == null && results?.region == null ? '-' : results?.city + ', '+ results?.region}</span>
           </div>
           <div className="flex flex-col justify-center max-md:items-center">
             <span className="font-bold text-slate-400">TIMEZONE</span>
-            <span className="font-bold text-slate-800 text-xl">UTC {results.utc_offset}</span>
+            <span className="font-bold text-slate-800 text-xl text-center">UTC {results?.utc_offset == null ? '-' : results?.utc_offset }</span>
           </div>
           <div className="flex flex-col justify-center max-md:items-center">
             <span className="font-bold text-slate-400">ISP</span>
-            <span className="font-bold text-slate-800 text-xl">{results.org}</span>
+            <span className="font-bold text-slate-800 text-xl text-center">{results?.org == null ? ' - ' : results?.org }</span>
           </div>
         </div>
       </section>
 
-      
+      <div className='w-full h-full bg-green-400 -mt-[100px] z-10'>
+        <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        </MapContainer>
+      </div>
+
     </main>
   )
 }

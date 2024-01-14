@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 import Header from "./components/Header/Header"
 
-import { ChevronRight, MapPin } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import './app.css'
 import "leaflet/dist/leaflet.css"
 
 import { IResults } from '../src/@types/types'
-import { Icon } from 'leaflet'
 
 
 function App() {
@@ -29,7 +28,6 @@ function App() {
       return res.json();
     })
     .then(data => { 
-      console.log('Dados recebidos:', data); 
       setResults(data)
     })
     .catch(error => {

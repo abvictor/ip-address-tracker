@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Header from "./components/Header/Header"
 
-import { ChevronRight } from "lucide-react"
+import { ChevronRight, MapPin } from "lucide-react"
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import './app.css'
@@ -13,37 +13,38 @@ import { Icon } from 'leaflet'
 
 function App() {
   const [valueSearch, setValueSearch] = useState('');
-  const [results, setResults] = useState<IResults>()   
-
+  const [results, setResults] = useState<IResults>()
 
   const handleSearchInputValue = () => { 
-
     fetch(`https://ipapi.co/${valueSearch}/json/`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json'
       },
     })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Erro na solicitação: ' + res.status);
-        }
-        return res.json();
-      })
-      .then(data => { setResults(data)})
-      .catch(error => {
-        console.error('Erro ao realizar a solicitação:', error);
-      });
-    
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('Erro na solicitação: ' + res.status);
+      }
+      return res.json();
+    })
+    .then(data => { 
+      console.log('Dados recebidos:', data); 
+      setResults(data)
+    })
+    .catch(error => {
+      console.error('Erro ao realizar a solicitação:', error);
+    });
   }
 
-  useEffect( () => {
-    // handleSearchInputValue()
-  })
+  useEffect(() => {
+    handleSearchInputValue();
+  }, []);
+
 
   return (
     <main className="flex flex-col items-center w-full h-full">
-      <Header />
+        <Header />
 
       <div className="flex flex-col w-full items-center justify-center -mt-40">
         <span className="text-white font-medium size text-4xl mb-3">IP Address Tracker</span>
@@ -59,31 +60,38 @@ function App() {
         <div className="flex max-md:flex-col max-md:items-center w-full justify-between p-8 gap-5">
           <div className="flex flex-col justify-center max-md:items-center">
             <span className="font-bold text-slate-400">IP ADDRESS</span>
-            <span className="font-bold text-slate-800 text-xl break-all text-center">{results?.ip == null ? '-' : results?.ip }</span>
+            <span className="font-bold text-slate-800 text-xl break-all text-center">{results?.ip == null ? '?' : results?.ip }</span>
 
           </div>
           <div className="flex flex-col justify-center max-md:items-center">
             <span className="font-bold text-slate-400">LOCATION</span>
-            <span className="font-bold text-slate-800 text-xl text-center">{results?.city == null && results?.region == null ? '-' : results?.city + ', '+ results?.region}</span>
+            <span className="font-bold text-slate-800 text-xl text-center">{results?.city == null && results?.region == null ? '?' : results?.city + ', '+ results?.region}</span>
           </div>
           <div className="flex flex-col justify-center max-md:items-center">
             <span className="font-bold text-slate-400">TIMEZONE</span>
-            <span className="font-bold text-slate-800 text-xl text-center">UTC {results?.utc_offset == null ? '-' : results?.utc_offset }</span>
+            <span className="font-bold text-slate-800 text-xl text-center">UTC {results?.utc_offset == null ? '?' : results?.utc_offset }</span>
           </div>
           <div className="flex flex-col justify-center max-md:items-center">
             <span className="font-bold text-slate-400">ISP</span>
-            <span className="font-bold text-slate-800 text-xl text-center">{results?.org == null ? ' - ' : results?.org }</span>
+            <span className="font-bold text-slate-800 text-xl text-center">{results?.org == null ? ' ? ' : results?.org }</span>
           </div>
         </div>
       </section>
 
       <div className='w-full h-full bg-green-400 -mt-[100px] z-10'>
-        <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+      {results && results.latitude !== undefined && results.longitude !== undefined && (
+        <MapContainer center={[results.latitude, results.longitude]} zoom={13} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+            <Marker position={[results.latitude, results.longitude]}>
+            <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
         </MapContainer>
+      )}
       </div>
 
     </main>

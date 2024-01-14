@@ -4,4 +4,6 @@ export interface IResults {
     region: string;
     utc_offset: string;
     org: string;
+    latitude: number;
+    longitude: number;
 }

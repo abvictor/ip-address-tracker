@@ -46,7 +46,7 @@ function App() {
       <div className="flex flex-col w-full items-center justify-center absolute mt-4">
         <span className="text-white font-medium size text-4xl mb-3">IP Address Tracker</span>
           <div className="flex w-full justify-center">
-            <input value={valueSearch.trim()} onChange={(e) => setValueSearch(e.target.value)} placeholder="Search for any IP address or domain" className="max-lg:w-[50%] w-[25%] h-12 indent-4 rounded-l-xl max-md:text-xs max-md:indent-2"/>
+            <input value={valueSearch.trim()} onChange={(e) => setValueSearch(e.target.value)} placeholder="Search for any IP address or domain" className="max-lg:w-[55%] w-[25%] h-12 indent-4 rounded-l-xl max-md:text-xs max-md:indent-2"/>
                 <button onClick={handleSearchInputValue} className="flex items-center justify-center w-12 h-12 bg-black rounded-r-xl">
                   <ChevronRight size={24} className="text-white" />
                 </button>

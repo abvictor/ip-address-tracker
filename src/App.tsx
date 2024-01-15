@@ -8,6 +8,8 @@ import './app.css'
 import "leaflet/dist/leaflet.css"
 
 import { IResults } from '../src/@types/types'
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
 
 function App() {
@@ -61,7 +63,6 @@ function App() {
           <div className="flex flex-col justify-center max-md:items-center">
             <span className="font-bold text-slate-400">IP ADDRESS</span>
             <span className="font-bold text-slate-800 text-xl break-all text-center">{results?.ip == null ? '?' : results?.ip }</span>
-
           </div>
           <div className="flex flex-col justify-center max-md:items-center">
             <span className="font-bold text-slate-400">LOCATION</span>

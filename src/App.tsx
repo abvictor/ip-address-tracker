@@ -8,6 +8,8 @@ import './app.css'
 import "leaflet/dist/leaflet.css"
 
 import { IResults } from '../src/@types/types'
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
 function App() {
   const [valueSearch, setValueSearch] = useState('');

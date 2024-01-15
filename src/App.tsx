@@ -8,8 +8,7 @@ import './app.css'
 import "leaflet/dist/leaflet.css"
 
 import { IResults } from '../src/@types/types'
-import "leaflet-defaulticon-compatibility";
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+
 
 function App() {
   const [valueSearch, setValueSearch] = useState('');
@@ -45,7 +44,7 @@ function App() {
     <main className="flex flex-col items-center w-full h-full">
         <Header />
 
-      <div className="flex flex-col w-full items-center justify-center absolute mt-4">
+      <div className="flex flex-col w-full items-center justify-center absolute mt-8">
         <span className="text-white font-medium size text-4xl mb-3">IP Address Tracker</span>
           <div className="flex w-full justify-center">
             <input value={valueSearch.trim()} onChange={(e) => setValueSearch(e.target.value)} placeholder="Search for any IP address or domain" className="max-lg:w-[55%] w-[25%] h-12 indent-4 rounded-l-xl max-md:text-xs max-md:indent-2"/>
@@ -57,7 +56,7 @@ function App() {
 
 
        
-      <section className="sm:flex-col lg:flex w-[70%] sm:h-auto lg:h-36 justify-center bg-white rounded-lg mt-32 z-40 absolute">
+      <section className="sm:flex-col lg:flex w-[70%] sm:h-auto lg:h-36 justify-center bg-white rounded-lg mt-40 z-40 absolute">
         <div className="flex max-md:flex-col max-md:items-center w-full justify-between p-8 gap-5">
           <div className="flex flex-col justify-center max-md:items-center">
             <span className="font-bold text-slate-400">IP ADDRESS</span>
@@ -88,7 +87,7 @@ function App() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-              <Marker position={[results.latitude, results.longitude]}>
+              <Marker position={[results.latitude, results.longitude]} >
             </Marker>
           </MapContainer>
         )}

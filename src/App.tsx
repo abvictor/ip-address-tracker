@@ -46,7 +46,7 @@ function App() {
     <main className="flex flex-col items-center w-full h-full">
         <Header />
 
-      <div className="flex flex-col w-full items-center justify-center absolute mt-8">
+      <div className="flex flex-col w-full items-center justify-center absolute mt-16">
         <span className="text-white font-medium size text-4xl mb-3">IP Address Tracker</span>
           <div className="flex w-full justify-center">
             <input value={valueSearch.trim()} onChange={(e) => setValueSearch(e.target.value)} placeholder="Search for any IP address or domain" className="max-lg:w-[55%] w-[25%] h-12 indent-4 rounded-l-xl max-md:text-xs max-md:indent-2"/>
@@ -58,23 +58,26 @@ function App() {
 
 
        
-      <section className="sm:flex-col lg:flex w-[70%] sm:h-auto lg:h-36 justify-center bg-white rounded-lg mt-40 z-40 absolute">
-        <div className="flex max-md:flex-col max-md:items-center w-full justify-between p-8 gap-5">
-          <div className="flex flex-col justify-center max-md:items-center">
+      <section className="sm:flex-col lg:flex w-[70%] sm:h-auto lg:h-40 justify-center bg-white rounded-lg mt-52 z-40 absolute">
+        <div className="flex max-md:flex-col max-md:items-center w-full justify-around p-8 gap-5">
+          <div className="flex flex-col -mt-8 justify-center max-md:items-center max-md:-mt-0 gap-2">
             <span className="font-bold text-slate-400">IP ADDRESS</span>
-            <span className="font-bold text-slate-800 text-xl break-all text-center">{results?.ip == null ? '?' : results?.ip }</span>
+            <span className="font-bold text-slate-800 text-2xl break-all text-center">{results?.ip == null ? '?' : results?.ip }</span>
           </div>
-          <div className="flex flex-col justify-center max-md:items-center">
+          <div className='w-[1px] h-[80px] bg-slate-300 max-md:hidden'></div>
+          <div className="flex flex-col -mt-8 justify-center max-md:items-center max-md:-mt-0 gap-2">
             <span className="font-bold text-slate-400">LOCATION</span>
-            <span className="font-bold text-slate-800 text-xl text-center">{results?.city == null && results?.region == null ? '?' : results?.city + ', '+ results?.region}</span>
+            <span className="font-bold text-slate-800 text-2xl text-center">{results?.city == null && results?.region == null ? '?' : results?.city + ', '+ results?.region}</span>
           </div>
-          <div className="flex flex-col justify-center max-md:items-center">
+          <div className='w-[1px] h-[80px] bg-slate-300 max-md:hidden'></div>
+          <div className="flex flex-col -mt-8 justify-center max-md:items-center max-md:-mt-0 gap-2">
             <span className="font-bold text-slate-400">TIMEZONE</span>
-            <span className="font-bold text-slate-800 text-xl text-center">UTC {results?.utc_offset == null ? '?' : results?.utc_offset }</span>
+            <span className="font-bold text-slate-800 text-2xl text-center">UTC {results?.utc_offset == null ? '?' : results?.utc_offset }</span>
           </div>
-          <div className="flex flex-col justify-center max-md:items-center">
+          <div className='w-[1px] h-[80px] bg-slate-300 max-md:hidden'></div>
+          <div className="flex flex-col -mt-8 justify-center max-md:items-center max-md:-mt-0 gap-2">
             <span className="font-bold text-slate-400">ISP</span>
-            <span className="font-bold text-slate-800 text-xl text-center">{results?.org == null ? ' ? ' : results?.org }</span>
+            <span className="font-bold text-slate-800 text-2xl text-center">{results?.org == null ? ' ? ' : results?.org }</span>
           </div>
         </div>
       </section>
